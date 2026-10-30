@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+.venv/
+session-handoff
+
+# OS / Editor artifacts
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+
+# Script output artifacts - never project content
+*_resource_counts.json
+sizing*.json
+sizing-output/
+*.log
+
+# Credentials / Environment files
+*.env
+!*.env.example
+demo-creds.env
+

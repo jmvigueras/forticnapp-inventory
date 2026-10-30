@@ -1,0 +1,28 @@
+# Python 3.10+ is required. The scripts' own syntax is 3.9-compatible, but boto3,
+# botocore, google-auth and google-api-core all declare requires-python >= 3.10.
+
+# AWS
+boto3>=1.34,<2
+# botocore is imported directly (Config, exceptions) but deliberately not pinned here:
+# boto3 already constrains it to a matching range, and a second constraint on the same
+# package only creates resolution conflicts.
+
+# Azure
+azure-identity>=1.16,<2
+# Ceiling is real, not caution: SubscriptionClient was removed from azure.mgmt.resource
+# in 25.0.0 and split into a separate azure-mgmt-resource-subscriptions package.
+# 24.0.0 is the last release count_azure_resources.py can import it from.
+azure-mgmt-resource>=23.0,<25
+# Floor is 8.0.1, not 8.0: 8.0.0 imports `six` at module level without declaring it,
+# so a clean install of that version crashes on import. Both versions carry the
+# management_groups and result_truncated fields the script depends on.
+azure-mgmt-resourcegraph>=8.0.1,<9
+
+# GCP
+google-auth>=2.29,<3
+# 4.x verified compatible against the full GCP test suite: the asset_v1 client,
+# ContentType.RESOURCE, ListAssetsRequest, and the Asset.ancestors field used for
+# per-project attribution are all unchanged from 3.x.
+google-cloud-asset>=3.25,<5
+# google.protobuf (json_format) is imported directly but left to google-cloud-asset
+# to pin, for the same reason as botocore above.
